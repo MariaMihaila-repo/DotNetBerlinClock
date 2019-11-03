@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BerlinClock
 {
@@ -9,7 +6,16 @@ namespace BerlinClock
     {
         public string convertTime(string aTime)
         {
-            throw new NotImplementedException();
+            return new BerlinClockDisplay(GetTimeOfDay(aTime)).ToString();
         }
+
+        private TimeSpan24Hours GetTimeOfDay(string aTime)
+        {
+            if (String.IsNullOrEmpty(aTime) || !aTime.IsValidTime24HoursFormat())
+                throw new InvalidTimeArgumentException("Invalid time argument!");
+
+            return aTime.GetTimeFields24HoursFormat();
+        }
+
     }
 }
